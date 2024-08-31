@@ -37,14 +37,16 @@ function addBookToLibrary() {
     const title = form.querySelector("#title");
     const author = form.querySelector("#author");
     const pages = form.querySelector("#pages");
-    const read = form.querySelector("#status");
-    const newBook = new Book(title.value, author.value, Number(pages.value), Boolean(read.checked));
+    const status = form.querySelector("#status");
+    // Verifica qual opção foi selecionada
+    const isRead = status.value === "read";
+    const newBook = new Book(title.value === "" ? 'Sem titulo' : title.value, author.value === "" ? 'Sem Autor/Autora' : author.value, Number(pages.value), isRead);
     myLibrary.push(newBook);
     // Limpa o formulário
     title.value = "";
     author.value = "";
     pages.value = "";
-    read.checked = false;
+    status.value = "notread"; // Reseta para "Not read"
     // Atualiza a interface com o novo livro
     const container = document.createElement("div");
     container.className = "container";
@@ -54,7 +56,7 @@ function addBookToLibrary() {
     h2Author.textContent = newBook.author;
     const divInfo = document.createElement("div");
     const pagesSpan = document.createElement("span");
-    pagesSpan.textContent = `${newBook.pages}`;
+    pagesSpan.textContent = `${newBook.pages} pages`;
     const readSpan = document.createElement("span");
     readSpan.textContent = newBook.read ? "already read" : "not read yet";
     divInfo.appendChild(pagesSpan);

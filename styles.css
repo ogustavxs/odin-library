@@ -28,17 +28,19 @@ form label {
 
 main {
     display: flex;
+    gap: 1rem;
 }
 
 .container {
-    width: 15rem;
-    height: 15rem;
+    min-width: 15rem;
+    min-height: 15rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     align-items: center;
     border: 2px solid black;
     text-align: center;
+    padding: .5rem;
 }
 
 .container h1 {

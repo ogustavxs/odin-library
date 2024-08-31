@@ -49,20 +49,25 @@ function addBookToLibrary() {
 	const title = form.querySelector("#title") as HTMLInputElement;
 	const author = form.querySelector("#author") as HTMLInputElement;
 	const pages = form.querySelector("#pages") as HTMLInputElement;
-	const read = form.querySelector("#status") as HTMLInputElement;
+	const status = form.querySelector("#status") as HTMLSelectElement;
+
+	// Verifica qual opção foi selecionada
+	const isRead = status.value === "read";
+
 	const newBook = new Book(
-		title.value,
-		author.value,
+		title.value === "" ? 'Sem titulo' : title.value,
+		author.value === "" ? 'Sem Autor/Autora' : author.value,
 		Number(pages.value),
-		Boolean(read.checked), // Use `checked` para obter o valor booleano de um checkbox
+		isRead, // Usa o valor do `select` para definir o status de leitura
 	);
+
 	myLibrary.push(newBook);
 
 	// Limpa o formulário
 	title.value = "";
 	author.value = "";
 	pages.value = "";
-	read.checked = false;
+	status.value = "notread"; // Reseta para "Not read"
 
 	// Atualiza a interface com o novo livro
 	const container = document.createElement("div");
@@ -73,7 +78,7 @@ function addBookToLibrary() {
 	h2Author.textContent = newBook.author;
 	const divInfo = document.createElement("div");
 	const pagesSpan = document.createElement("span");
-	pagesSpan.textContent = `${newBook.pages}`;
+	pagesSpan.textContent = `${newBook.pages} pages`;
 	const readSpan = document.createElement("span");
 	readSpan.textContent = newBook.read ? "already read" : "not read yet";
 	divInfo.appendChild(pagesSpan);
@@ -83,3 +88,4 @@ function addBookToLibrary() {
 	container.appendChild(divInfo);
 	main.appendChild(container);
 }
+
