@@ -22,7 +22,8 @@ dialog.addEventListener("close", () => {
         : addBookToLibrary();
 });
 class Book {
-    constructor(title, author, pages, read) {
+    constructor(id, title, author, pages, read) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.pages = pages;
@@ -32,7 +33,8 @@ class Book {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "already read" : "not read yet"}`;
     }
 }
-const myLibrary = [];
+let myLibrary = [];
+let bookId = 0;
 function addBookToLibrary() {
     const title = form.querySelector("#title");
     const author = form.querySelector("#author");
@@ -40,8 +42,9 @@ function addBookToLibrary() {
     const status = form.querySelector("#status");
     // Verifica qual opção foi selecionada
     const isRead = status.value === "read";
-    const newBook = new Book(title.value === "" ? 'Sem titulo' : title.value, author.value === "" ? 'Sem Autor/Autora' : author.value, Number(pages.value), isRead);
+    const newBook = new Book(bookId, title.value === "" ? 'Sem titulo' : title.value, author.value === "" ? 'Sem Autor/Autora' : author.value, Number(pages.value), isRead);
     myLibrary.push(newBook);
+    bookId++;
     // Limpa o formulário
     title.value = "";
     author.value = "";
@@ -57,12 +60,33 @@ function addBookToLibrary() {
     const divInfo = document.createElement("div");
     const pagesSpan = document.createElement("span");
     pagesSpan.textContent = `${newBook.pages} pages`;
-    const readSpan = document.createElement("span");
-    readSpan.textContent = newBook.read ? "already read" : "not read yet";
+    const readSelection = document.createElement('select');
+    const optionRead = document.createElement('option');
+    optionRead.textContent = "Read";
+    optionRead.value = 'read';
+    const optionNotRead = document.createElement('option');
+    optionNotRead.textContent = 'Not readed';
+    optionNotRead.value = 'notread';
+    readSelection.appendChild(optionRead);
+    readSelection.appendChild(optionNotRead);
+    readSelection.value = newBook.read ? "read" : "notread";
+    readSelection.addEventListener('change', () => {
+        const index = myLibrary.findIndex(book => book.id === newBook.id);
+        myLibrary[index].read = readSelection.value === 'read';
+    });
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = 'Click';
+    deleteButton.addEventListener('click', () => {
+        container.remove();
+        myLibrary = myLibrary.filter((book) => {
+            return book.id !== newBook.id;
+        });
+    });
     divInfo.appendChild(pagesSpan);
-    divInfo.appendChild(readSpan);
+    divInfo.appendChild(readSelection);
     container.appendChild(h1Title);
     container.appendChild(h2Author);
     container.appendChild(divInfo);
+    container.appendChild(deleteButton);
     main.appendChild(container);
 }
