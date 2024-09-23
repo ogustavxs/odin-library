@@ -60,8 +60,8 @@ function addBookToLibrary() {
 
 	const newBook = new Book(
 		bookId,
-		title.value === "" ? 'Sem titulo' : title.value,
-		author.value === "" ? 'Sem Autor/Autora' : author.value,
+		title.value === "" ? 'Untitled' : title.value,
+		author.value === "" ? 'No Author' : author.value,
 		Number(pages.value),
 		isRead, // Usa o valor do `select` para definir o status de leitura
 	);
@@ -105,7 +105,8 @@ function addBookToLibrary() {
 	})
 
 	const deleteButton = document.createElement("button");
-	deleteButton.textContent = 'Click'
+	deleteButton.classList.add("deleteButton")
+	deleteButton.textContent = 'Remove book'
 	deleteButton.addEventListener('click', () => {
 		container.remove()
 		myLibrary = myLibrary.filter((book) => {

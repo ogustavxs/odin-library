@@ -1,15 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
     padding: 0;
-
+    margin: 0;
     box-sizing: border-box;
+    font-family: "Roboto";
 }
 
 body {
     font-size: 62.5%;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #e5e7eb;
+    /* Remover overflow: hidden; */
+}
+
+#mainTitle {
+    background-color: #6b7280 ;
+    padding: 1.5rem;
+    font-size: 2.5rem;
+    color: #e5e7eb;
+    text-align: center;
+}
+
+#showDialog {
+    text-align: center;
+    padding: .5rem 1rem;
+    margin: 1rem auto;
+    border-radius: 5px;
+    background-color: #3a3e46;
+    color: white;
+    border: 1px solid #4f555f;
+    cursor: pointer;
+    font-size: 1.2rem;
 }
 
 dialog {
     padding: 1rem;
+    margin: auto;
 }
 
 dialog::backdrop {
@@ -23,43 +53,66 @@ form {
 }
 
 form label {
-    font-size: 1rem;
+    font-size: 1.5rem;
+}
+
+form button, form select{
+    font-size: 1rem
 }
 
 main {
-    display: flex;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* Cada livro ocupará no mínimo 150px e o grid ajustará o espaço automaticamente */
+    grid-gap: 10px; /* Espaçamento entre os itens do grid */
+    padding: 20px 100px;
 }
 
 .container {
     min-width: 15rem;
     min-height: 15rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    align-items: center;
-    border: 2px solid black;
+    border: 2px solid #3a3e46;
+    border-radius: 5px;
+    outline: 1px solid rgb(149, 149, 149);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #dde0e6;
     text-align: center;
     padding: .5rem;
+    display: flex;
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    justify-content: space-between; /* Espaça os elementos dentro do contêiner */
+}
+
+.container .deleteButton {
+    max-width: 12rem;
+    padding: .3rem .8rem;
+    cursor: pointer;
+    border: 1px solid #4f555f;
+    border-radius: 15px;
+    background-color: #4f555f;
+    color: white;
+    margin: 0 auto .5rem auto;
 }
 
 .container h1 {
-    grid-column: 1/3;
     font-size: 2rem;
-    grid-row: 1;
 }
 
 .container h2 {
-    grid-column: 1/3;
-    grid-row: 2;
     font-size: 1.5rem;
 }
 
 .container div {
-    grid-column: 1/3;
-    grid-row: 3;
     font-size: 1rem;
     display: flex;
-    margin: 0 auto 0 auto;
-    gap: 4rem;
+    justify-content: space-between; /* Alinha os spans na mesma linha */
+    padding: 0 1rem;
+}
+
+.container select {
+    font-size: 1rem;
+    padding: .2rem .4rem;
+    border: 1px solid #4f555f;
+    border-radius: 15px;
+    background-color: #4f555f;
+    color: white;
 }

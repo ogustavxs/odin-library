@@ -42,7 +42,7 @@ function addBookToLibrary() {
     const status = form.querySelector("#status");
     // Verifica qual opção foi selecionada
     const isRead = status.value === "read";
-    const newBook = new Book(bookId, title.value === "" ? 'Sem titulo' : title.value, author.value === "" ? 'Sem Autor/Autora' : author.value, Number(pages.value), isRead);
+    const newBook = new Book(bookId, title.value === "" ? 'Untitled' : title.value, author.value === "" ? 'No Author' : author.value, Number(pages.value), isRead);
     myLibrary.push(newBook);
     bookId++;
     // Limpa o formulário
@@ -75,7 +75,8 @@ function addBookToLibrary() {
         myLibrary[index].read = readSelection.value === 'read';
     });
     const deleteButton = document.createElement("button");
-    deleteButton.textContent = 'Click';
+    deleteButton.classList.add("deleteButton");
+    deleteButton.textContent = 'Remove book';
     deleteButton.addEventListener('click', () => {
         container.remove();
         myLibrary = myLibrary.filter((book) => {
